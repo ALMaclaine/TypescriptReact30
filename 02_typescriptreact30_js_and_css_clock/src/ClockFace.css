@@ -1,0 +1,6 @@
+.clock-face {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: rotate(90deg) translateY(-3px); /* account for the height of the clock hands */
+}
