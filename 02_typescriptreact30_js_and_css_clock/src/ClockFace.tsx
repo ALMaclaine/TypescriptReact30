@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Dispatch, SetStateAction, ReactElement} from 'react';
+import React, {useState, useEffect, Dispatch, SetStateAction, ReactElement, useRef, MutableRefObject} from 'react';
 import './ClockFace.css';
 
 import SecondHand from "./SecondHand";
@@ -9,6 +9,13 @@ interface ClockFaceProps {
     updateRate: number
 }
 
+interface TimeSet {
+    milliseconds: number,
+    seconds: number,
+    mins: number,
+    hours: number
+}
+
 type Dispatcher<E> = Dispatch<SetStateAction<E>>;
 type DispatchNum = Dispatcher<number>;
 type NumberDispatchPair = [number, DispatchNum];
@@ -17,18 +24,19 @@ function ClockFace(props: ClockFaceProps): ReactElement {
     const {updateRate}: ClockFaceProps = props;
     const [firstDate]: [Date, Dispatcher<Date>] = useState(new Date());
 
-    const startTime: {[key: string]: number} = {
+    const startTimeRef: MutableRefObject<TimeSet> = useRef({
         milliseconds: firstDate.getMilliseconds(),
         seconds: firstDate.getSeconds(),
         mins: firstDate.getMinutes(),
         hours: firstDate.getHours(),
-    };
+    });
 
-    const [seconds, setSeconds]: NumberDispatchPair = useState(startTime.seconds);
-    const [mins, setMins]: NumberDispatchPair = useState(startTime.mins);
-    const [hours, setHours]: NumberDispatchPair = useState(startTime.hours);
+    const [seconds, setSeconds]: NumberDispatchPair = useState(startTimeRef.current.seconds);
+    const [mins, setMins]: NumberDispatchPair = useState(startTimeRef.current.mins);
+    const [hours, setHours]: NumberDispatchPair = useState(startTimeRef.current.hours);
 
     useEffect((): () => void => {
+        const startTime: TimeSet = startTimeRef.current;
         let currentDate: Date = firstDate;
         let ellapsedMilliseconds: number = 0;
 
