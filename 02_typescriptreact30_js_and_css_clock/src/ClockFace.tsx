@@ -22,7 +22,7 @@ type NumberDispatchPair = [number, DispatchNum];
 
 function ClockFace(props: ClockFaceProps): ReactElement {
     const {updateRate}: ClockFaceProps = props;
-    const [firstDate]: [Date, Dispatcher<Date>] = useState(new Date());
+    const [firstDate]: [Date, Dispatcher<Date>] = useState<Date>(new Date());
 
     const startTimeRef: MutableRefObject<TimeSet> = useRef({
         milliseconds: firstDate.getMilliseconds(),
@@ -31,9 +31,9 @@ function ClockFace(props: ClockFaceProps): ReactElement {
         hours: firstDate.getHours(),
     });
 
-    const [seconds, setSeconds]: NumberDispatchPair = useState(startTimeRef.current.seconds);
-    const [mins, setMins]: NumberDispatchPair = useState(startTimeRef.current.mins);
-    const [hours, setHours]: NumberDispatchPair = useState(startTimeRef.current.hours);
+    const [seconds, setSeconds]: NumberDispatchPair = useState<number>(startTimeRef.current.seconds);
+    const [mins, setMins]: NumberDispatchPair = useState<number>(startTimeRef.current.mins);
+    const [hours, setHours]: NumberDispatchPair = useState<number>(startTimeRef.current.hours);
 
     useEffect((): () => void => {
         const startTime: TimeSet = startTimeRef.current;
