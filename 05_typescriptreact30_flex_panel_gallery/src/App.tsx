@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {ReactElement} from 'react';
 import Panels from "./Panels";
 
-function App() {
+function App(): ReactElement {
     return <Panels/>;
 }
 

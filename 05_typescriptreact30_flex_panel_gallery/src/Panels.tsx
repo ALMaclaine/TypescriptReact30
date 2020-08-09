@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react'
 import './Panels.css'
-import Panel from './Panel'
+import Panel from './Panel';
 
 function Panels(): ReactElement {
     return <div className="panels">
@@ -29,7 +29,7 @@ function Panels(): ReactElement {
             <p>In</p>
             <p>Motion</p>
         </Panel>
-    </div>
+    </div>;
 }
 
 export default Panels;
