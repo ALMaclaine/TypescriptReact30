@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import SearchContainer from "./SearchContainer";
 
-function App() {
+function App(): ReactElement {
     return <SearchContainer/>;
 }
 
