@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import CssVariables from "./CssVariables";
 
-function App() {
+function App(): ReactElement {
     return <CssVariables/>;
 }
 

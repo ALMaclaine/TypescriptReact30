@@ -10,7 +10,7 @@ type Dispatcher<E> = Dispatch<SetStateAction<E>>;
 
 function ColorPicker(props: ColorPickerProps): ReactElement {
     const {startingValue, name}: ColorPickerProps = props;
-    const [value, setValue]: [string, Dispatcher<string>] = useState(startingValue);
+    const [value, setValue]: [string, Dispatcher<string>] = useState<string>(startingValue);
 
     function handleUpdate(e: SyntheticEvent<HTMLInputElement>) {
         const value: string = e.currentTarget.value;

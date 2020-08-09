@@ -13,7 +13,7 @@ type Dispatcher<E> = Dispatch<SetStateAction<E>>;
 
 function Slider(props: SliderProps): ReactElement {
     const {min, max, startingValue, name, dataSizing}: SliderProps = props;
-    const [value, setValue]: [number, Dispatcher<number>] = useState(startingValue);
+    const [value, setValue]: [number, Dispatcher<number>] = useState<number>(startingValue);
 
     function handleUpdate(e: SyntheticEvent<HTMLInputElement>) {
         const suffix: string = dataSizing || '';
