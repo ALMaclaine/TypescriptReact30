@@ -3,7 +3,7 @@ import './ClockHand.css';
 
 interface ClockHandProps {
     degrees: number,
-    style?: {[key: string]: string},
+    style?: { [key: string]: string },
     className?: string
 }
 
@@ -13,7 +13,7 @@ function ClockHand(props: ClockHandProps): ReactElement {
     if (style && style.transform) {
         transform += ` ${style.transform}`;
     }
-    const finalClass: string = 'hand' + (className ? ` ${className}`: '');
+    const finalClass: string = 'hand' + (className ? ` ${className}` : '');
     return <div className={finalClass} style={{transform}}/>
 }
 
