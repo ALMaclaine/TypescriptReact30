@@ -2,7 +2,7 @@ import React from 'react'
 import Panels from "./Panels";
 
 function App() {
-    return <Panels />;
+    return <Panels/>;
 }
 
 export default App;

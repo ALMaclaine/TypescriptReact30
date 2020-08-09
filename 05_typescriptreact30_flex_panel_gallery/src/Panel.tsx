@@ -12,19 +12,19 @@ function Panel(props: PanelProps): ReactElement {
 
     useEffect((): () => void => {
         const toggleOpen = (): void => {
-            if(ref.current !== null) {
+            if (ref.current !== null) {
                 ref.current.classList.toggle('open');
             }
         }
         const toggleActive = (e: TransitionEvent): void => {
             if (e.propertyName.includes('flex')) {
-                if(ref.current !== null) {
+                if (ref.current !== null) {
                     ref.current.classList.toggle('open-active');
                 }
             }
         }
 
-        if(ref.current !== null) {
+        if (ref.current !== null) {
             ref.current.addEventListener('click', toggleOpen);
             ref.current.addEventListener('transitionend', toggleActive);
         }
@@ -32,7 +32,7 @@ function Panel(props: PanelProps): ReactElement {
         const current: HTMLDivElement | null = ref.current;
 
         return (): void => {
-            if(current !== null) {
+            if (current !== null) {
                 current.removeEventListener('click', toggleOpen);
                 current.removeEventListener('transitionend', toggleActive);
             }
