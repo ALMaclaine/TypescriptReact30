@@ -9,7 +9,7 @@ interface ColorPickerProps {
 type Dispatcher<E> = Dispatch<SetStateAction<E>>;
 
 function ColorPicker(props: ColorPickerProps): ReactElement {
-    const { startingValue, name }: ColorPickerProps = props;
+    const {startingValue, name}: ColorPickerProps = props;
     const [value, setValue]: [string, Dispatcher<string>] = useState(startingValue);
 
     function handleUpdate(e: SyntheticEvent<HTMLInputElement>) {
@@ -20,7 +20,8 @@ function ColorPicker(props: ColorPickerProps): ReactElement {
 
     return <>
         <label htmlFor={name}>{`${name[0].toUpperCase() + name.slice(1)}:`}</label>
-        <input onChange={() => {}} onInput={handleUpdate} type="color" name={name} value={value} style={{ position: "relative", top: "-6px" }} />
+        <input onChange={(): void => {}}
+               onInput={handleUpdate} type="color" name={name} value={value} style={{position: "relative", top: "-6px"}}/>
     </>
 }
 

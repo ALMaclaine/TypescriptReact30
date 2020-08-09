@@ -12,8 +12,8 @@ interface SliderProps {
 type Dispatcher<E> = Dispatch<SetStateAction<E>>;
 
 function Slider(props: SliderProps): ReactElement {
-    const { min, max, startingValue, name, dataSizing }: SliderProps = props;
-    const [value, setValue]: [number, Dispatcher<number>]  = useState(startingValue);
+    const {min, max, startingValue, name, dataSizing}: SliderProps = props;
+    const [value, setValue]: [number, Dispatcher<number>] = useState(startingValue);
 
     function handleUpdate(e: SyntheticEvent<HTMLInputElement>) {
         const suffix: string = dataSizing || '';
@@ -24,7 +24,8 @@ function Slider(props: SliderProps): ReactElement {
 
     return <>
         <label htmlFor={name}>{`${name[0].toUpperCase() + name.slice(1)}:`}</label>
-        <input onChange={() => {}} onInput={handleUpdate} type="range" name={name} min={min} max={max} value={value} />
+        <input onChange={() => {
+        }} onInput={handleUpdate} type="range" name={name} min={min} max={max} value={value}/>
     </>
 }
 
