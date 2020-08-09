@@ -20,7 +20,7 @@ type Dispatcher<E> = Dispatch<SetStateAction<E>>
 
 const Key: ForwardRefRenderFunction<KeyHandles, KeyData> = (props: PropsWithChildren<KeyData>, ref): ReactElement => {
     const {keyLetter, keyName, soundName}: KeyData = props;
-    const [inProp, setInProp]: [boolean, Dispatcher<boolean>] = useState(false as boolean);
+    const [inProp, setInProp]: [boolean, Dispatcher<boolean>] = useState<boolean>(false);
     const audioRef: MutableRefObject<HTMLAudioElement | null> = useRef<HTMLAudioElement>(null);
 
     const click: (() => void) = () => {
