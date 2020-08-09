@@ -24,7 +24,7 @@ function ClockFace(props: ClockFaceProps): ReactElement {
     const {updateRate}: ClockFaceProps = props;
     const [firstDate]: [Date, Dispatcher<Date>] = useState<Date>(new Date());
 
-    const startTimeRef: MutableRefObject<TimeSet> = useRef({
+    const startTimeRef: MutableRefObject<TimeSet> = useRef<TimeSet>({
         milliseconds: firstDate.getMilliseconds(),
         seconds: firstDate.getSeconds(),
         mins: firstDate.getMinutes(),
