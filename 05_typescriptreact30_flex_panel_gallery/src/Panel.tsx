@@ -1,48 +1,34 @@
-import React, {useRef, useEffect, ReactElement, MutableRefObject, SyntheticEvent} from 'react'
+import React, {Dispatch, ReactElement, SetStateAction, useState} from 'react'
 import './Panel.css'
+import {CSSTransition} from 'react-transition-group';
 
 interface PanelProps {
     children: ReactElement[],
     className: string
 }
 
+type Dispatcher<E> = Dispatch<SetStateAction<E>>;
+
 function Panel(props: PanelProps): ReactElement {
     const {children, className}: PanelProps = props;
-    const ref: MutableRefObject<HTMLDivElement | null> = useRef(null);
+    const [open, setOpen]: [boolean, Dispatcher<boolean>] = useState<boolean>(false);
 
-    useEffect((): () => void => {
-        const toggleOpen = (): void => {
-            if (ref.current !== null) {
-                ref.current.classList.toggle('open');
-            }
-        }
-        const toggleActive = (e: TransitionEvent): void => {
-            if (e.propertyName.includes('flex')) {
-                if (ref.current !== null) {
-                    ref.current.classList.toggle('open-active');
-                }
-            }
-        }
+    const timeout: {[key: string]: number} = {
+        appear: 0,
+        enter: 500,
+        exit: 700,
+    };
+    const classNames: {[key: string]: string} = {enter: 'open', enterDone: 'open-active', exit: 'close-active'}
 
-        if (ref.current !== null) {
-            ref.current.addEventListener('click', toggleOpen);
-            ref.current.addEventListener('transitionend', toggleActive);
-        }
-
-        const current: HTMLDivElement | null = ref.current;
-
-        return (): void => {
-            if (current !== null) {
-                current.removeEventListener('click', toggleOpen);
-                current.removeEventListener('transitionend', toggleActive);
-            }
-        }
-    }, []);
-
-    const finalClassName: string = "panel " + className;
-    return <div className={finalClassName} ref={ref}>
-        {children}
-    </div>
+    const finalClassName: string = 'panel' + (className ? ` ${className}` : '');
+    return <CSSTransition in={open}
+                          timeout={timeout}
+                          classNames={classNames}
+    >
+        <div onClick={() => setOpen(!open)} className={finalClassName}>
+            {children}
+        </div>
+    </CSSTransition>
 }
 
 export default Panel;
