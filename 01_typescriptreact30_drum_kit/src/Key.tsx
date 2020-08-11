@@ -31,7 +31,7 @@ const Key: ForwardRefRenderFunction<KeyHandles, KeyData> = (props: PropsWithChil
         }
     }
 
-    useImperativeHandle(ref, (): KeyHandles => ({
+    useImperativeHandle<KeyHandles, KeyHandles>(ref, (): KeyHandles => ({
         play: click
     }));
 
