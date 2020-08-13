@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, ReactElement, SetStateAction, SyntheticEvent, useState} from 'react';
+import React, {ChangeEvent, Dispatch, ReactElement, SetStateAction, useState} from 'react';
 import './AddItems.css';
 
 interface AddItemsProps {
