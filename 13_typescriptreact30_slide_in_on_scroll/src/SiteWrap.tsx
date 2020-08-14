@@ -1,38 +1,39 @@
-import React, {useEffect, useState} from 'react';
+import React, {SetStateAction, useEffect, useState, Dispatch, ReactElement} from 'react';
 import './SiteWrap.css';
 import SlideImageLeft from "./SlideImageLeft";
 import SlideImageRight from "./SlideImageRight";
 
-function debounce(func, wait = 20, immediate = true) {
-    let timeout;
+function debounce(func: () => void, wait = 20, immediate = true): () => void {
+    let timeout: null | number = null;
     return function () {
-        const context = this, args = arguments;
         const later = function () {
             timeout = null;
-            if (!immediate) func.apply(context, args);
+            if (!immediate) func();
         };
         const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
+        if(timeout !== null) clearTimeout(timeout);
+        timeout = window.setTimeout(later, wait);
+        if (callNow) func();
     };
 };
 
-function SiteWrap(props) {
-    const [active, setActive] = useState(Array(5).fill(false));
-    const refs = [];
+type Dispatcher<E> = Dispatch<SetStateAction<E>>;
 
-    useEffect(() => {
-        function checkSlide() {
-            let tmp = [...active];
-            refs.forEach((sliderImageRef, i) => {
+function SiteWrap(): ReactElement {
+    const [active, setActive]: [boolean[], Dispatcher<boolean[]>] = useState(Array(5).fill(false));
+    const refs: (HTMLImageElement | null)[] = [];
+
+    useEffect((): () => void => {
+        function checkSlide(): void {
+            let tmp: boolean[] = [...active];
+            refs.forEach((sliderImageRef: HTMLImageElement | null, i: number): void => {
                 if (sliderImageRef === null) return;
                 // half way through the image
-                const slideInAt = (window.scrollY + window.innerHeight) - sliderImageRef.height / 2;
+                const slideInAt: number = (window.scrollY + window.innerHeight) - sliderImageRef.height / 2;
                 // bottom of the image
-                const imageBottom = sliderImageRef.offsetTop + sliderImageRef.height;
-                const isHalfShown = slideInAt > sliderImageRef.offsetTop;
-                const isNotScrolledPast = window.scrollY < imageBottom;
+                const imageBottom: number = sliderImageRef.offsetTop + sliderImageRef.height;
+                const isHalfShown: boolean = slideInAt > sliderImageRef.offsetTop;
+                const isNotScrolledPast: boolean = window.scrollY < imageBottom;
                 if (isHalfShown && isNotScrolledPast) {
                     tmp = [
                         ...tmp.slice(0, i),
@@ -51,10 +52,10 @@ function SiteWrap(props) {
             setActive(tmp);
         }
 
-        const debounced = debounce(checkSlide);
+        const debounced: () => void = debounce(checkSlide);
         window.addEventListener('scroll', debounced);
 
-        return () => {
+        return (): void => {
             window.removeEventListener('scroll', debounced);
         }
     }, [active, refs]);
@@ -82,7 +83,7 @@ function SiteWrap(props) {
             omnis blanditiis quod quas laborum nam! Fuga ad tempora in aspernatur pariatur fugit quibusdam dolores sunt
             esse magni, ut, dignissimos.</p>
 
-        <SlideImageLeft ref={ref => refs.push(ref)} src="http://unsplash.it/400/400" active={active[0]}/>
+        <SlideImageLeft ref={(ref: HTMLImageElement | null) => refs.push(ref)} src="http://unsplash.it/400/400" active={active[0]}/>
 
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, deserunt facilis et iste corrupti
             omnis tenetur est. Iste ut est dicta dolor itaque adipisci, dolorum minima, veritatis earum provident
@@ -93,7 +94,7 @@ function SiteWrap(props) {
             Culpa, dolorum reprehenderit harum ab voluptas fuga, nisi eligendi natus maiores illum quas quos et
             aperiam aut doloremque optio maxime fugiat doloribus. Eum dolorum expedita quam, nesciunt</p>
 
-        <SlideImageRight ref={ref => refs.push(ref)} src="http://unsplash.it/400/401" active={active[1]}/>
+        <SlideImageRight ref={(ref: HTMLImageElement | null) => refs.push(ref)} src="http://unsplash.it/400/401" active={active[1]}/>
 
         <p> at provident praesentium atque quas rerum optio dignissimos repudiandae ullam illum quibusdam. Vel
             ad error quibusdam, illo ex totam placeat. Quos excepturi fuga, molestiae ea quisquam minus, ratione
@@ -119,7 +120,7 @@ function SiteWrap(props) {
             reprehenderit soluta sint eaque. Aperiam, qui ut tenetur, voluptate doloremque officiis dicta
             quaerat voluptatem rerum natus magni. Eum amet autem dolor ullam.</p>
 
-        <SlideImageLeft ref={ref => refs.push(ref)} src="http://unsplash.it/200/500" active={active[2]}/>
+        <SlideImageLeft ref={(ref: HTMLImageElement | null) => refs.push(ref)} src="http://unsplash.it/200/500" active={active[2]}/>
 
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci quibusdam
             repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat optio,
@@ -152,7 +153,7 @@ function SiteWrap(props) {
             officiis, amet! Molestias, fugit, ut! Tempore non magnam, amet, facere ducimus accusantium eos
             veritatis neque.</p>
 
-        <SlideImageRight ref={ref => refs.push(ref)} src="http://unsplash.it/400/400" active={active[4]}/>
+        <SlideImageRight ref={(ref: HTMLImageElement | null) => refs.push(ref)} src="http://unsplash.it/400/400" active={active[4]}/>
 
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio maiores adipisci
             quibusdam repudiandae dolor vero placeat esse sit! Quibusdam saepe aperiam explicabo placeat
