@@ -3,10 +3,6 @@ import './Hero.css';
 
 type Dispatcher<E> = Dispatch<SetStateAction<E>>;
 
-interface DOMEvent<T extends EventTarget> extends MouseEvent {
-    target: T
-}
-
 interface Walk {
     walk: number
 }
@@ -19,19 +15,18 @@ function Hero(): ReactElement {
     });
 
     useEffect((): (() => void) => {
-        function shadow(e: DOMEvent<HTMLElement>): void {
-            const target: HTMLElement = e.target;
+        function shadow(e: MouseEvent): undefined | (() => void)  {
+            const target: HTMLElement = e.target as HTMLElement;
             const {walk}: Walk = calcData.current;
-            const {offsetWidth: width, offsetHeight: height}: { width: number, height: number } = heroRef.current;
-            let {offsetX: x, offsetY: y}: { x: number, y: number } = e;
-
-            if (this !== target) {
-                x = x + target.offsetLeft;
-                y = y + target.offsetTop;
-            }
+            if(heroRef.current === null) return;
+            const {offsetWidth: width, offsetHeight: height}: { offsetWidth: number, offsetHeight: number } = heroRef.current;
+            let {offsetX: x, offsetY: y}: { offsetX: number, offsetY: number } = e;
+            x = x + target.offsetLeft;
+            y = y + target.offsetTop;
 
             const xWalk: number = Math.round((x / width * walk) - (walk / 2));
             const yWalk: number = Math.round((y / height * walk) - (walk / 2));
+
             setStyle(`
               ${xWalk}px ${yWalk}px 0 rgba(255,0,255,0.7),
               ${xWalk * -1}px ${yWalk}px 0 rgba(0,255,255,0.7),
