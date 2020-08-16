@@ -1,0 +1,7 @@
+.arrow {
+    width: 250px;
+    overflow: hidden;
+    transition: all 0.2s;
+    transform: rotate(0deg);
+    display: inline-block;
+}

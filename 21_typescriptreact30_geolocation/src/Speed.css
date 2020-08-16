@@ -1,0 +1,11 @@
+.speed {
+    color: white;
+    font-weight: 100;
+    font-size: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.units {
+    font-size: 15px;
+}
