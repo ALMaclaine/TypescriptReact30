@@ -1,0 +1,14 @@
+.menu {
+    padding: 0;
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin:100px 0;
+}
+
+.menu a {
+    display: inline-block;
+    padding: 5px;
+    margin: 0 20px;
+    color: black;
+}
